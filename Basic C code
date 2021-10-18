@@ -63,7 +63,7 @@ int main() {
 
     int yourAge;
     //Q: printf("\nThe person can enter");
-W: printf("\nThe person cannot enter");
+    //W: printf("\nThe person cannot enter");
     printf("\nEnter your age: ");
     scanf("%d", &yourAge); // take user input
     if (yourAge >= 18) { // if statement
