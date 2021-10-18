@@ -1,0 +1,206 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#pragma warning(disable : 4996) // to remove error 4996 (now I can use strcpy instead of strcpy_s, scanf instead of scanf_s)
+enum week {Mon, Tue, Wed, Thur, Fr, Sat, Sun};
+
+// structure 
+struct Courses {
+    char Website[50];
+    char Subject[50];
+    int Price;
+};
+
+// union (store different data types in the same memory location
+union Data {
+    int j;
+    float f;
+} data;
+
+// typedef (assign alternative names to existing datatypes)
+typedef struct Student {
+    char s_name[50];
+} student;
+
+int main() {
+
+    // strings
+    char name1[6] = { 'E', 'l', 'e', 'n', 'a', '\0' };
+    char name2[] = "Elena";
+    int age = 32;
+    printf("My name is %s\n", name1); // print word (My name is Elena)
+    printf("My name is %s\n", name2); // print word (My name is Elena)
+    printf("My age is %d\n", age); // print number (My age is 32)
+    printf("%d", 2021); // 2021
+
+    // copy string
+    char name3[10]; // destination String
+    strcpy(name3, name2); // (destination string, source string)
+    printf("\nHer name is %s", name3); // Her name is Elena
+
+    int a, b, c;
+    printf("\nPlease, enter two numbers: \n");
+    scanf("%d %d", &a, &b); // take 2 user inputs
+    // TERNARY operator (print the bigger number: if a > b, print a, else print b) instead of if-else-then statement
+    int max = (a > b) ? a : b;
+    printf("The bigger number is: %d", max);
+
+    c = a + b;
+    printf("\nThe total is: %d", c); // print number
+
+    double f = 2.25;
+    printf("\nThe f number is: %lf", f); // print double (2.250000)
+
+    int d = 5, t = 5;
+    printf("\nThe d number is: %d and %d", d--, --t); // Decrement the number (5, 4) 
+
+    int e = 5, h = 5;
+    printf("\nThe d number is: %d and %d", e++, ++h); // Increment the number (5, 6)
+
+    int q = 2;
+    q -= 2; // 2 - 2 = 0
+    printf("\n%d", q); // 0
+
+    int yourAge;
+    //Q: printf("\nThe person can enter");
+W: printf("\nThe person cannot enter");
+    printf("\nEnter your age: ");
+    scanf("%d", &yourAge); // take user input
+    if (yourAge >= 18) { // if statement
+        printf("Please, enter\n");
+        //goto Q; // GOTO statement
+    }
+    else { // else statement
+        printf("Please, do not enter\n");
+        goto W; // GOTO statement
+    }
+
+    // while loop with incrementation
+    int n = 1;
+    int k = 3;
+    while (n <= k) {
+        printf("n is less k: %d\n", n); // n is less k: 1, n is less k: 2, n is less k: 3
+        n++;
+    }
+
+    // do-while loop
+    int z = 1, x = 3;
+    do {
+        printf("z is less x: %d\n", z); // z is less x: 1, z is less x: 2, z is less x: 3
+        z = z + 1; // n++
+    } while (z <= x);
+
+    // switch
+    int input;
+    printf("\nPlease choose 1 or 2: ");
+    scanf("%d", &input); // take user input
+    switch (input) {
+    case 1: printf("This is case 1");
+        break;
+    case 2: printf("This is case 2");
+        break;
+    default: printf("The choice wasn't made");
+        break;
+    }
+
+    // functions
+    int addition();
+    int anotherAddition(int, int);
+    int num1 = 5, num2 = 4;
+    int answer = addition();
+    int answer2 = anotherAddition(num1, num2);
+    printf("\nThe sum of 2 numbers is: %d", answer); // The sum of 2 numbers is 9
+    printf("\nThe sum of 2 numbers is: %d", answer2); // The sum of 2 numbers is 9
+
+    // one dimensional array
+    int ages[3] = { 32, 37, 2 };
+    printf("\n%d", ages[0]); // 32
+    printf("\n");
+    for (int i = 0; i < 3; i++) {
+        printf("%d ", ages[i]); // 32, 37, 2
+    }
+
+    // multidimensional array
+    int array[3][4] = {
+        {1, 2, 3, 4},
+        {5, 6, 7, 8},
+        {9, 10, 11, 12}
+    };
+    printf("\n%d ", array[2][3]); // 12
+    printf("\n");
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 4; j++) {
+            printf("%d ", array[i][j]); // 1 2 3 4 5 6 7 8 9 10 11 12
+        }
+    }
+    // array as a parameter (passing arrays as function arguments)
+    int myNumberArray[6] = { 11, 21, 33, 41, 52, 60 }; // = 218
+    int totalValueOfArray(int[], int);
+    int sumOfArray = totalValueOfArray(myNumberArray, 6);
+    printf("\nThe total is: %d ", sumOfArray); // The total is 218
+
+    // pointers
+    int var1 = 20;
+    int* ip;
+    ip = &var1;
+    printf("\nAddress of var1 is: %x ", &var1); // Address of var1 is aff848
+    printf("\nThe value of ip is: %x ", ip); // The value of ip is aff848:
+
+    // structure 
+    struct Courses C;
+    strcpy(C.Website, "www.cprogramming.com");
+    strcpy(C.Subject, "Intro to C Programming");
+    C.Price = 15;
+    printf("\nWebsite: %s ", C.Website); // Website: www.cprogramming.com
+    printf("\nSubject: %s ", C.Subject); // Subject: Intro to C Programming
+    // printf("\nPrice: %s ", C.Price); // doesn't work for some reason
+
+    // union
+    data.j = 5;
+    data.f = 8.5;
+    printf("\nj: %d", data.j); // j: 1091043328 (but should be: j: 5)
+    printf("\nf: %f", data.f); // f: 8.500000
+
+    // typedef
+    student st;
+    strcpy(st.s_name, "Elena");
+    printf("\nStudent's name: %s", st.s_name); // Student's name: Elena
+
+    // create, open, write, and close file
+    FILE* fp;
+    fp = fopen("file1.txt", "w");
+    fprintf(fp, "%s", "Hello World");
+    fclose(fp);
+
+    // read file
+    FILE* filename;
+    char ch[100]; // size of content of the file I guess
+    filename = fopen("file1.txt", "r");
+    printf("\n%s", fgets(ch, 50, filename)); // Hello World (print no more than 50 characters)
+    fclose(filename);
+
+    // enum (when we know all possible values at compile time)
+    enum week day;
+    day = Wed;
+    printf("\n%d", day); // 2
+    printf("\n%d", Mon); // 0
+    return 0;
+}
+
+// functions
+int addition() {
+    int num1 = 5, num2 = 4;
+    return num1 + num2; // return 9
+}
+int anotherAddition(int a, int b) {
+    return a + b; // return 9
+}
+
+// array as a parameter
+int totalValueOfArray(int numberArray[], int sizeOfArray) {
+    int total = 0;
+    for (int i = 0; i < sizeOfArray; i++) {
+        total += numberArray[i];
+    }
+    return total;
+}
